@@ -1,0 +1,21 @@
+version: "3"
+services:
+  redis:
+    container_name: redis
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+
+  api:
+    container_name: api
+    image: "dockerhura/api"
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "1331:1331"
+    depends_on:
+      - redis
+networks:
+  backend:
+    driver: bridge
